@@ -11,7 +11,7 @@ from database import Base, engine, get_db
 from routers import rooms, autocomplete
 from services import room_service
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Pair Programming Backend")
 
@@ -24,6 +24,11 @@ app.add_middleware(
 
 app.include_router(rooms.router)
 app.include_router(autocomplete.router)
+
+
+# @app.on_event("startup")
+# async def startup():
+#     Base.metadata.create_all(bind=engine)
 
 
 class ConnectionManager:
