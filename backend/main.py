@@ -29,6 +29,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.get("/")
+def start_app():
+    return {"message": "App started"}
+
+
 app.include_router(rooms.router)
 app.include_router(autocomplete.router)
 
