@@ -15,6 +15,13 @@ from services import room_service
 
 app = FastAPI(title="Pair Programming Backend")
 
+
+@app.on_event("startup")
+async def on_startup():
+    # This will create the "rooms" table in your remote DB if it doesn't exist
+    Base.metadata.create_all(bind=engine)
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
