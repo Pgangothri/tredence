@@ -5,13 +5,12 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 
+# Fix older postgres scheme if provider gives postgres://
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 if not DATABASE_URL:
-    raise RuntimeError(
-        "DATABASE_URL is not set. Please configure it in Vercel env vars."
-    )
+    raise RuntimeError("DATABASE_URL is not set. Configure it in Vercel env vars.")
 
 engine = create_engine(DATABASE_URL, future=True, pool_pre_ping=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

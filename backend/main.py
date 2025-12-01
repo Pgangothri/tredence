@@ -26,11 +26,6 @@ app.include_router(rooms.router)
 app.include_router(autocomplete.router)
 
 
-# @app.on_event("startup")
-# async def startup():
-#     Base.metadata.create_all(bind=engine)
-
-
 class ConnectionManager:
     def __init__(self):
         self.rooms: Dict[str, List[WebSocket]] = {}
